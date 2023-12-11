@@ -90,5 +90,5 @@ if st.button('Send'):
                 st.markdown(f"- **{word}]** {definition.strip()}")
     else:
         # 'Definitions:' not present in the response
-        st.markdown('**Output:**')
+        st.markdown('**Simplified Text:**')
         st.write(ai_response.strip())
