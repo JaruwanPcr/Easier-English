@@ -70,17 +70,18 @@ if st.button('Send'):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages_so_far,
-        max_tokens=1000
+        max_tokens=700
     )
 
     ai_response = response['choices'][0]['message']['content']
 
-    st.markdown('**Output:**')
+    st.markdown('**Simplified Text:**')
     if 'Definitions:' in ai_response:
         simplified_text, definitions_part = ai_response.split('Definitions:', 1)
 
         st.write(simplified_text.strip())
 
         st.write(definitions_part.strip())
+
     else:
         st.write(ai_response.strip())
