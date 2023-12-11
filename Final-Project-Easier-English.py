@@ -103,20 +103,21 @@ if st.button('Send'):
 
     ai_response = response['choices'][0]['message']['content']
 
-    # Ensure 'Definitions:' is always present
-    if 'Definitions:' not in ai_response:
-        ai_response += '\nDefinitions: No definitions provided.'
-
     # Split into Simplified Text and Definitions
-    simplified_text, definitions_part = ai_response.split('Definitions:', 1)
+    if 'Definitions:' in ai_response:
+        simplified_text, definitions_part = ai_response.split('Definitions:', 1)
 
-    # Display Simplified Text
-    st.markdown('**Simplified Text:**')
-    st.write(simplified_text.strip())
+        # Display Simplified Text
+        st.markdown('**Simplified Text:**')
+        st.write(simplified_text.strip())
 
-    # Display Definitions
-    st.markdown('**Definitions:**')
-    for line in definitions_part.splitlines():
-        if line.startswith('['):
-            word, definition = line.split('] ', 1)
-            st.markdown(f"- **{word}]** {definition.strip()}")
+        # Display Definitions
+        st.markdown('**Definitions:**')
+        for line in definitions_part.splitlines():
+            if line.startswith('['):
+                word, definition = line.split('] ', 1)
+                st.markdown(f"- **{word}]** {definition.strip()}")
+    else:
+        st.markdown('**Simplified Text:**')
+        st.write(ai_response.strip())
+        st.markdown('**Definitions:** No definitions provided.')
