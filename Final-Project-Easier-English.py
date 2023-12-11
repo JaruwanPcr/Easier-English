@@ -75,20 +75,15 @@ if st.button('Send'):
 
     ai_response = response['choices'][0]['message']['content']
 
+    st.markdown('**Output:**')
     if 'Definitions:' in ai_response:
         simplified_text, definitions_part = ai_response.split('Definitions:', 1)
 
         # Display Simplified Text
-        st.markdown('**Simplified Text:**')
         st.write(simplified_text.strip())
 
         # Display Definitions
-        st.markdown('**Definitions:**')
-        for line in definitions_part.splitlines():
-            if line.startswith('['):
-                word, definition = line.split('] ', 1)
-                st.markdown(f"- **{word}]** {definition.strip()}")
+        st.write(definitions_part.strip())
     else:
         # 'Definitions:' not present in the response
-        st.markdown('**Simplified Text:**')
         st.write(ai_response.strip())
