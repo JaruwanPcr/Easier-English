@@ -62,28 +62,49 @@ user_input = st.text_area("Enter text to simplify:", "Your text here")
 #             word, definition = line.split('] ', 1)
 #             st.markdown(f"- **{word}]** {definition.strip()}")
 
-if st.button('Send'):
+# if st.button('Send'):
+#     messages_so_far = [
+#         {"role": "system", "content": prompt},
+#         {'role': 'user', 'content': user_input},
+#     ]
+#     response = openai.ChatCompletion.create(
+#         model="gpt-3.5-turbo",
+#         messages=messages_so_far,
+#         max_tokens=1000
+#     )
+
+#     ai_response = response['choices'][0]['message']['content']
+
+#     st.markdown('**Output:**')
+#     if 'Definitions:' in ai_response:
+#         simplified_text, definitions_part = ai_response.split('Definitions:', 1)
+
+#         # Display Simplified Text
+#         st.write(simplified_text.strip())
+
+#         # Display Definitions
+#         st.write(definitions_part.strip())
+#     else:
+#         # 'Definitions:' not present in the response
+#         st.write(ai_response.strip())
+
+if st.button('Submit'):
     messages_so_far = [
         {"role": "system", "content": prompt},
         {'role': 'user', 'content': user_input},
     ]
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=messages_so_far,
-        max_tokens=1000
+        messages=messages_so_far
     )
+    # Show the response from the AI in a box
+    st.markdown('**AI response:**')
+    suggestion_dictionary = response.choices[0].message.content
 
-    ai_response = response['choices'][0]['message']['content']
 
-    st.markdown('**Output:**')
-    if 'Definitions:' in ai_response:
-        simplified_text, definitions_part = ai_response.split('Definitions:', 1)
+    sd = json.loads(suggestion_dictionary)
 
-        # Display Simplified Text
-        st.write(simplified_text.strip())
-
-        # Display Definitions
-        st.write(definitions_part.strip())
-    else:
-        # 'Definitions:' not present in the response
-        st.write(ai_response.strip())
+    print (sd)
+    suggestion_df = pd.DataFrame.from_dict(sd)
+    print(suggestion_df)
+    st.table(suggestion_df)
