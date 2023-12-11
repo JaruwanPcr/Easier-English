@@ -56,8 +56,8 @@ if st.button('Send'):
     st.markdown('**Simplified Text:**')
     st.write(simplified_text.strip())
 
-    st.markdown('**Definitions:**')
-    for line in definitions_part.splitlines():
-        if line.startswith('['):
-            word, definition = line.split('] ', 1)
-            st.markdown(f"- **{word}]** {definition.strip()}")
+    # st.markdown('**Definitions:**')
+    # for line in definitions_part.splitlines():
+    #     if line.startswith('['):
+    #         word, definition = line.split('] ', 1)
+    #         st.markdown(f"- **{word}]** {definition.strip()}")
