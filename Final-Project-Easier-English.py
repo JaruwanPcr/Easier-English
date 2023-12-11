@@ -93,7 +93,7 @@ if st.button('Submit'):
         {"role": "system", "content": prompt},
         {'role': 'user', 'content': user_input},
     ]
-    response = client.chat.completions.create(
+    response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=messages_so_far
     )
