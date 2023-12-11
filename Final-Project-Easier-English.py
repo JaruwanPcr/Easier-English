@@ -62,34 +62,6 @@ user_input = st.text_area("Enter text to simplify:", "Your text here")
 #             word, definition = line.split('] ', 1)
 #             st.markdown(f"- **{word}]** {definition.strip()}")
 
-# if st.button('Send'):
-#     messages_so_far = [
-#         {"role": "system", "content": prompt},
-#         {'role': 'user', 'content': user_input},
-#     ]
-#     response = openai.ChatCompletion.create(
-#         model="gpt-3.5-turbo",
-#         messages=messages_so_far,
-#         max_tokens=1000
-#     )
-
-#     ai_response = response['choices'][0]['message']['content']
-
-#     # Ensure 'Definitions:' is present, otherwise provide a default message
-#     if 'Definitions:' not in ai_response:
-#         ai_response += '\nDefinitions: No definitions provided.'
-
-#     simplified_text, definitions_part = ai_response.split('Definitions:', 1)
-
-#     st.markdown('**Simplified Text:**')
-#     st.write(simplified_text.strip())
-
-#     st.markdown('**Definitions:**')
-#     for line in definitions_part.splitlines():
-#         if line.startswith('['):
-#             word, definition = line.split('] ', 1)
-#             st.markdown(f"- **{word}]** {definition.strip()}")
-
 if st.button('Send'):
     messages_so_far = [
         {"role": "system", "content": prompt},
@@ -103,7 +75,6 @@ if st.button('Send'):
 
     ai_response = response['choices'][0]['message']['content']
 
-    # Split into Simplified Text and Definitions
     if 'Definitions:' in ai_response:
         simplified_text, definitions_part = ai_response.split('Definitions:', 1)
 
@@ -118,6 +89,6 @@ if st.button('Send'):
                 word, definition = line.split('] ', 1)
                 st.markdown(f"- **{word}]** {definition.strip()}")
     else:
-        st.markdown('**Simplified Text:**')
+        # 'Definitions:' not present in the response
+        st.markdown('**Output:**')
         st.write(ai_response.strip())
-        st.markdown('**Definitions:** No definitions provided.')
