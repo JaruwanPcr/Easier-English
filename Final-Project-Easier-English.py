@@ -6,7 +6,7 @@ import pandas as pd
 
 user_api_key = st.sidebar.text_input("OpenAI API key", type="password")
 
-client = openai.OpenAI(api_key=user_api_key)
+openai.api_key = user_api_key
 prompt = """You will receive an English input from the user. Your task is to make the input easier to understand. 
 For example, replace hard words with their simpler synonyms and put brackets over the new word, or rephrase the sentence to make it easier to understand.
 If the word is, according to the CEFR level, B2 or upper, replace it with a word that is B1 or lower. 
